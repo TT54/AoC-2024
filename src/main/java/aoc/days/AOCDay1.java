@@ -1,12 +1,16 @@
-package aoc.day1;
+package aoc.days;
 
 import aoc.utils.DataUtils;
 
 import java.util.*;
 
-public class Day1Main {
+public class AOCDay1 implements AbstractDay {
 
-    public static void main(String[] args) {
+    private List<Integer> leftList;
+    private List<Integer> rightList;
+
+    @Override
+    public void showResults() {
         System.out.println("Part 1 example result is " + getPart1Result("/day1/exampleData1"));
         System.out.println("Part 1 result is " + getPart1Result("/day1/data1"));
 
@@ -14,12 +18,9 @@ public class Day1Main {
         System.out.println("Part 2 result is " + getPart2Result("/day1/data1"));
     }
 
-    public static int getPart1Result(String dataPath){
-        // Getting the lists from datas
-        List<String> lines = DataUtils.readResourceFile(dataPath);
-        List<Integer> leftList = new ArrayList<>(lines.size());
-        List<Integer> rightList = new ArrayList<>(lines.size());
-        readDatas(lines, leftList, rightList);
+    @Override
+    public int getPart1Result(String dataPath){
+        readDatas(dataPath);
 
         // Sorting the lists (incredibly hard)
         Collections.sort(leftList);
@@ -34,12 +35,9 @@ public class Day1Main {
         return distance;
     }
 
-    public static int getPart2Result(String dataPath){
-        // Getting the lists from datas
-        List<String> lines = DataUtils.readResourceFile(dataPath);
-        List<Integer> leftList = new ArrayList<>(lines.size());
-        List<Integer> rightList = new ArrayList<>(lines.size());
-        readDatas(lines, leftList, rightList);
+    @Override
+    public int getPart2Result(String dataPath){
+        readDatas(dataPath);
 
         // Constructing the apparitions map
         Map<Integer, Integer> rightElementsApparitions = new HashMap<>();
@@ -56,11 +54,16 @@ public class Day1Main {
         return similarityScore;
     }
 
-    private static void readDatas(List<String> lines, List<Integer> leftList, List<Integer> rightList){
+    @Override
+    public void readDatas(String dataPath){
+        List<String> lines = DataUtils.readResourceFile(dataPath);
+        this.leftList = new ArrayList<>(lines.size());
+        this.rightList = new ArrayList<>(lines.size());
+
         for(String line : lines){
             String[] input = line.split(" {3}");
-            leftList.add(Integer.parseInt(input[0]));
-            rightList.add(Integer.parseInt(input[1]));
+            this.leftList.add(Integer.parseInt(input[0]));
+            this.rightList.add(Integer.parseInt(input[1]));
         }
     }
 }
