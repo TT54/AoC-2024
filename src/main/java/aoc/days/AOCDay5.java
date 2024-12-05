@@ -46,22 +46,6 @@ public class AOCDay5 implements AbstractDay{
         return count;
     }
 
-    private void reorganizeInstruction(List<Integer> instruction){
-        for(int i = 0; i < instruction.size(); i++){
-            int numberIndex = 0;
-            int number = instruction.get(numberIndex);
-            for(int j = 1; j < instruction.size() - i; j++){
-                if(!isBefore(instruction.get(j), number)){
-                    numberIndex = j;
-                    number = instruction.get(numberIndex);
-                }
-            }
-
-            instruction.set(numberIndex, instruction.get(instruction.size() - 1 - i));
-            instruction.set(instruction.size() - 1 - i, number);
-        }
-    }
-
     @Override
     public int getPart2Result(String dataPath) {
         this.readDatas(dataPath);
@@ -70,7 +54,7 @@ public class AOCDay5 implements AbstractDay{
 
         for(List<Integer> instruction : instructions){
             if(!isInstructionValid(instruction)){
-                reorganizeInstruction(instruction);
+                instruction.sort((i1, i2) -> i1 == i2 ? 0 : (isBefore(i1, i2) ? -1 : 1));
                 count += instruction.get(instruction.size() / 2);
             }
         }
