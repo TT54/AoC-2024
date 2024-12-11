@@ -12,34 +12,6 @@ public class AOCDay11 implements AbstractDay{
     List<Long> stones;
     Map<Long, Long>[] encounteredValues;
 
-    private void changeStonesAfterBlink(){
-        List<Long> newStones = new ArrayList<>(stones.size() * 2);
-        for(int i = 0; i < stones.size(); i++){
-            long stone = stones.get(i);
-            String stoneStr = String.valueOf(stone);
-            if(stone == 0){
-                newStones.add(1L);
-            } else if(stoneStr.length() % 2 == 0){
-                newStones.add(Long.parseLong(stoneStr.substring(0, stoneStr.length() / 2)));
-                newStones.add(Long.parseLong(stoneStr.substring(stoneStr.length() / 2)));
-            } else{
-                newStones.add(stone * 2024L);
-            }
-        }
-        this.stones = newStones;
-    }
-
-    @Override
-    public int getPart1Result(String dataPath) {
-        this.readDatas(dataPath);
-
-        for(int i = 0; i < 25; i++){
-            changeStonesAfterBlink();
-        }
-
-        return this.stones.size();
-    }
-
     public long changeStone(long stone, int amount){
         if(amount == 0) return 1;
 
@@ -61,6 +33,18 @@ public class AOCDay11 implements AbstractDay{
             encounteredValues[amount].put(stone, value);
             return value;
         }
+    }
+
+    @Override
+    public int getPart1Result(String dataPath) {
+        this.readDatas(dataPath);
+
+        int count = 0;
+        for(long stone : this.stones){
+            count += (int) changeStone(stone, 25);
+        }
+
+        return count;
     }
 
     @Override
@@ -96,13 +80,9 @@ public class AOCDay11 implements AbstractDay{
     @Override
     public void showResults() {
         System.out.println("Part 1 example result is " + getPart1Result("/day11/exampleData1"));
-        long time = System.currentTimeMillis();
         System.out.println("Part 1 result is " + getPart1Result("/day11/data1"));
-        System.out.println("Elapsed Time : " + (System.currentTimeMillis() - time));
 
         System.out.println("Part 2 example result is " + getPart2Result("/day11/exampleData1"));
-        time = System.currentTimeMillis();
         System.out.println("Part 2 result is " + getPart2Result("/day11/data1"));
-        System.out.println("Elapsed Time : " + (System.currentTimeMillis() - time));
     }
 }
