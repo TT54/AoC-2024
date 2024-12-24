@@ -174,7 +174,9 @@ public class AOCDay24 implements AbstractDay {
         System.out.println("Part 1 example result is " + getPart1Result("/day24/exampleData2"));
         System.out.println("Part 1 result is " + getPart1Result("/day24/data1"));
 
-        //System.out.println("Part 2 example result is " + getPart2Result("/day24/exampleData1"));
+        // The original input file
+        System.out.println("Part 2 result is " + getPart2Result("/day24/data1"));
+        // The corrected input file
         System.out.println("Part 2 result is " + getPart2Result("/day24/data2"));
     }
 
